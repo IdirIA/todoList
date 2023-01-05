@@ -3,6 +3,8 @@ body{
     background-attachment:fixed;
     margin: 0;
     padding: 0;
+    transition: 1s;
+    overflow-x: hidden;
 }
 h1{
     margin-top: 0;
@@ -10,6 +12,7 @@ h1{
     font-size: 3.5em;
     color: white;
     background-color: rgba(0, 0, 0, 0.614);
+    transition: 1s;
 }
 #flexContainer{
     display: flex;
@@ -18,6 +21,7 @@ h1{
     row-gap: 20px;
     column-gap: 50px;
     margin-bottom: 200px;
+    transition: 1s;
 }
 .postitContainer{
     position: relative;
@@ -37,6 +41,7 @@ img{
     object-position: center;
     width: 100%;
     height: 100%;
+    z-index: -200;
 }
 
 .postitContainer h2{
@@ -65,7 +70,7 @@ h3{
 }
 
 
-form{
+#listManagementForm{
     position:fixed;
     bottom: 0px;
     display: flex;
@@ -75,11 +80,71 @@ form{
     background-color: rgba(0, 0, 0, 0.622);
 }
 
-input{
+#listManagementForm input{
     height: 50px;
     width: 250px;
     margin: 10px;
     border-radius: 10px;
     font-size: 1.2em;
 }
+
+#notePad{
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    transform:translateX(3000px);
+    transition: 2s;
+}
+
+#list{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-3000px);
+    background-color: rgba(0, 0, 0, 0.734);
+    width: 40%;
+    height: 80vh;
+    border-radius: 20px;
+    min-width: 500px;
+    transition: 2s;
+    z-index: 20;
+}
+#aFaire{
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 35px;
+    border-radius: 40px;
+    font-size: 1.2em;
+}
+
+#ulList{
+    color: white;
+    font-size: 1.4em;
+    position: absolute;
+    top: 70px;
+    left: 30px;
+    cursor: pointer;
+    list-style: none;
+}
+
+li:before{
+    content: "🔵";
+    font-size: 1em;
+}
+
+li.checked:before{
+    content: "✅";
+    font-size: 1em;
+}
+li.checked:hover:after{
+    content: "(Supprimer)";
+    color: red;
+    font-size: 0.8em;
+    transition: 1s;
+}
+
 

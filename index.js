@@ -1,9 +1,11 @@
 const form = document.getElementById("listManagementForm");
 const flexContainer = document.getElementById("flexContainer");
 const deleteListe = document.getElementById('deleteList');
-let postitContainer = document.querySelectorAll(".postitContainer");
+const postitContainer = document.querySelectorAll(".postitContainer");
 const h3Delete = document.querySelector('h3');
 const h1 = document.querySelector('h1');
+let nomListeAvantTri = "";
+
 
 function storeLists(){
     window.localStorage.lists=flexContainer.innerHTML;
@@ -29,7 +31,7 @@ form.addEventListener('submit', (e)=>{
     })
   })
 deleteListe.addEventListener('click', ()=>{
-    postitContainer = document.querySelectorAll(".postitContainer");
+    const postitContainer = document.querySelectorAll(".postitContainer");
     if (deleteListe.value==="Supprimer une liste"){
     deleteListe.value="Arreter la suppression"
     h3Delete.style.opacity=1;
@@ -51,16 +53,46 @@ deleteListe.addEventListener('click', ()=>{
     }
 })
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+const ulList = document.getElementById('ulList');
+const list = document.getElementById('list');
+const newBG = document.getElementById('notePad')
+const aFaire = document.getElementById('aFaire');
+
+function storeAFaire(listNameStorage){
+    //console.log(listNameStorage)
+    let x = listNameStorage
+    window.localStorage.x =ulList.innerHTML;
+}
 
 flexContainer.addEventListener('click', (e)=>{
-    postitContainer = document.querySelectorAll(".postitContainer");
-    postitContainer.forEach((box)=>{
-        box.addEventListener('click',(e)=>{
-            console.log(e)
-            h1.style.color="red";
-          
-        })
-    })
- 
+    //console.log(e.path[1])
+   // e.path[1].remove();
+    nomListeAvantTri = e.path[1].innerHTML
+    let balisePosition=nomListeAvantTri.indexOf("</h2>")
+    let nomListeAvecEspaces=[];
+    nomListeAvecEspaces =  nomListeAvantTri.slice(4, balisePosition);
+    let nomListeSansEspaces = nomListeAvecEspaces.replaceAll(" ","");
+    //console.log(nomListeSansEspaces)
+    newBG.style.transform=('translateX(0px)');
+    list.style.transform=('translate(-50%, -50%)');
+    storeAFaire(nomListeSansEspaces);
+})
+
+
+list.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    ulList.innerHTML += `<li>${aFaire.value}</li>`
+    aFaire.value = "";
+    storeAFaire(nomListeSansEspaces);
+})
+
+ulList.addEventListener('click', (e)=>{
+    if(e.target.classList.contains('checked')){
+        e.target.remove();
+        storeAFaire()
+    }else{
+        e.target.classList.add("checked")
+        storeAFaire()
+    }
 })
