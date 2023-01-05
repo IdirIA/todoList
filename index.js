@@ -5,6 +5,7 @@ const postitContainer = document.querySelectorAll(".postitContainer");
 const h3Delete = document.querySelector('h3');
 const h1 = document.querySelector('h1');
 let nomListeAvantTri = "";
+let store ="";
 
 
 function storeLists(){
@@ -60,23 +61,26 @@ const newBG = document.getElementById('notePad')
 const aFaire = document.getElementById('aFaire');
 
 function storeAFaire(listNameStorage){
-    //console.log(listNameStorage)
-    let x = listNameStorage
-    window.localStorage.x =ulList.innerHTML;
+   window.localStorage.setItem(listNameStorage, ulList.innerHTML);
 }
 
-flexContainer.addEventListener('click', (e)=>{
-    //console.log(e.path[1])
-   // e.path[1].remove();
+function getStore(listNameStorage){
+        ulList.innerHTML=window.localStorage.getItem(listNameStorage);
+
+}
+
+flexContainer.addEventListener('click', (e)=>{  
+    if (!e.path[1].classList.contains('postitContainerDelete')){
     nomListeAvantTri = e.path[1].innerHTML
     let balisePosition=nomListeAvantTri.indexOf("</h2>")
     let nomListeAvecEspaces=[];
     nomListeAvecEspaces =  nomListeAvantTri.slice(4, balisePosition);
     let nomListeSansEspaces = nomListeAvecEspaces.replaceAll(" ","");
-    //console.log(nomListeSansEspaces)
     newBG.style.transform=('translateX(0px)');
     list.style.transform=('translate(-50%, -50%)');
-    storeAFaire(nomListeSansEspaces);
+    getStore(nomListeSansEspaces);
+    store=nomListeSansEspaces;
+}
 })
 
 
@@ -84,15 +88,15 @@ list.addEventListener('submit', (e)=>{
     e.preventDefault();
     ulList.innerHTML += `<li>${aFaire.value}</li>`
     aFaire.value = "";
-    storeAFaire(nomListeSansEspaces);
+    storeAFaire(store);
 })
 
 ulList.addEventListener('click', (e)=>{
     if(e.target.classList.contains('checked')){
         e.target.remove();
-        storeAFaire()
+        storeAFaire(store)
     }else{
         e.target.classList.add("checked")
-        storeAFaire()
+        storeAFaire(store)
     }
 })
