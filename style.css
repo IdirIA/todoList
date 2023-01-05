@@ -144,7 +144,12 @@ li.checked:hover:after{
     content: "(Supprimer)";
     color: red;
     font-size: 0.8em;
-    transition: 1s;
+    transition: 1s ease-in-out;
+}
+li.checked:hover::before{
+    content: "🔴";
+    font-size: 1em;
+    transition: 1s ease-in-out;
 }
 
 

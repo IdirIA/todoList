@@ -41,7 +41,10 @@ deleteListe.addEventListener('click', ()=>{
              
         box.addEventListener('click',()=>{
             if (deleteListe.value==="Arreter la suppression") {
-                box.remove()
+                box.remove();
+                console.log("voici le nom "+ store)
+                window.localStorage.removeItem(store);
+                storeLists();
             }
         })
     })
